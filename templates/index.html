@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kakao Map Search</title>
+    <style>
+        #map {
+            max-width: 500px;
+            max-height: 400px;
+        }
+        #results {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kakao Map Search</h1>
+    <form method="POST">
+        <label for="keyword">장소 검색:</label>
+        <input type="text" name="keyword" id="keyword" value="{{ keyword }}">
+        <button type="submit">검색</button>
+    </form>
+
+    <div>
+        {% if map_result %}
+        <div id="map">{{ map_result | safe }}</div>
+    {% else %}
+        <p>지도가 없습니다.</p>
+    {% endif %}
+
+    {% if places_data %}
+    </div>
+    <div>
+        <h2>검색 결과:</h2>
+        <ul>
+            {% for place in places_data %}
+                <li>
+                    이름 :{{ place.place_name }},<br>
+                    주소 : {{ place.address_name }},<br> 
+                    링크: <a href="{{ place.place_url }}" target="_blank">{{ place.place_name }} 링크</a> <br><br>
+                    <br><br>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>검색 결과가 없습니다.</p>
+    {% endif %}
+    </div>
+
+
+</body>
+</html>
